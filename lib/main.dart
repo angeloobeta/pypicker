@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'view/home_page.dart';
+import 'package:pypicker/view/bottom_navigation_screen.dart';
 
 void main() => runApp(const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: BottomNavigationScreen(),
     ));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pypicker/view/favourite_screen.dart';
-import 'package:pypicker/view/home_page.dart';
+import 'package:pypicker/view/home_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    const HomePage(),
-    FavouriteScreen(),
+    const HomeScreen(),
+    const FavouriteScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,19 +43,18 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 30),
+            icon: Icon(Icons.home, size: 20),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, size: 30),
+            icon: Icon(Icons.favorite, size: 20),
             label: 'Favourite',
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedFontSize: 20,
+        selectedFontSize: 15,
       ),
     );
-    ;
   }
 }

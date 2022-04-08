@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pypicker/repository/product_repository.dart';
 
 import '../model/product.dart';
 
 class FavouriteScreen extends StatefulWidget {
-  FavouriteScreen({Key? key}) : super(key: key);
+  const FavouriteScreen({Key? key}) : super(key: key);
 
   @override
   State<FavouriteScreen> createState() => _FavouriteScreenState();
@@ -28,12 +29,19 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           itemCount: products.length,
           itemBuilder: (BuildContext ctx, index) {
             Product product = products[index];
-            return Container(
-              alignment: Alignment.center,
-              child: Text(product.productName!),
-              decoration: BoxDecoration(
-                  color: Colors.lightGreen,
-                  borderRadius: BorderRadius.circular(15)),
+            return ListTile(
+              leading: CachedNetworkImage(
+                imageUrl: product.productImage!,
+              ),
+              title: Text(product.productName!),
+              subtitle: Text(product.brand!),
+              trailing: IconButton(
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.deepOrange,
+                ),
+                onPressed: () {},
+              ),
             );
           }),
     );

@@ -40,6 +40,7 @@ class Product {
     brand = json['brand'];
     originalPrice = json['original_price'];
     discountPrice = json['discounted_price'];
+    discountPercentage = json['discount_percentage'];
     rating = json['rating'];
   }
 }

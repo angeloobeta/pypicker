@@ -5,6 +5,7 @@ import 'package:pypicker/blocs/product/product_bloc.dart';
 import 'package:pypicker/repository/product_repository.dart';
 
 import '../model/product.dart';
+import 'favourite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductBloc productBloc;
+  final List<Product> _products = [];
   // final List<Map> myProducts =
   //     List.generate(100000, (index) => {"id": index, "name": "Product $index"})
   //         .toList();
@@ -58,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 GridTile(
                     child: GestureDetector(
                   onTap: () {
+                    // _products.add(product);
                     ProductRepository().setProduct(product);
                   },
                   child: CachedNetworkImage(
@@ -74,22 +77,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       product.productName!,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const Icon(
-                      Icons.favorite_outline_sharp,
-                      color: Colors.black45,
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.favorite_outline_sharp,
+                        color: Colors.black45,
+                      ),
                     )
                   ],
                 ),
                 Text(
                   product.brand!.toUpperCase(),
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Rs. ' + product.discountPrice!.toString() + '  ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'Rs. ' + product.originalPrice!.toString() + '  ',
@@ -97,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       product.discountPercentage.toString() + '%',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.lightGreen),
                     )

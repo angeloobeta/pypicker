@@ -5,6 +5,7 @@ import 'package:pypicker/repository/product_repository.dart';
 import '../model/product.dart';
 
 class FavouriteScreen extends StatefulWidget {
+  //final List<Product>? products;
   const FavouriteScreen({Key? key}) : super(key: key);
 
   @override
@@ -12,38 +13,45 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  late List<Product> products;
+  List<Product>? products;
 
   @override
   void initState() {
-    products = ProductRepository().get();
+    products = ProductRepository().getProduct();
     super.initState();
   }
+  // late List<Product> products;
+  // final List<Map> myProducts =
+  //     List.generate(100000, (index) => {"id": index, "name": "Product $index"})
+  //         .toList();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(1.0),
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: products.length,
-          itemBuilder: (BuildContext ctx, index) {
-            Product product = products[index];
-            return ListTile(
-              leading: CachedNetworkImage(
-                imageUrl: product.productImage!,
-              ),
-              title: Text(product.productName!),
-              subtitle: Text(product.brand!),
-              trailing: IconButton(
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.deepOrange,
+    print('the product lenth${products!.length}');
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: products!.length,
+            itemBuilder: (BuildContext ctx, index) {
+              Product product = products![index];
+              return ListTile(
+                leading: CachedNetworkImage(
+                  imageUrl: product.productImage!,
                 ),
-                onPressed: () {},
-              ),
-            );
-          }),
+                title: Text(product.productName!),
+                subtitle: Text(product.brand!),
+                trailing: IconButton(
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.deepOrange,
+                  ),
+                  onPressed: () {},
+                ),
+              );
+            }),
+      ),
     );
   }
 }

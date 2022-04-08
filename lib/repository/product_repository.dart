@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:pypicker/model/product.dart';
 
 class ProductRepository {
+  List<Product>? products = [];
   Future<List<Product>> getProducts() async {
     try {
       final jsonData = await rootBundle.loadString('assets/data.json');
@@ -14,9 +15,11 @@ class ProductRepository {
     }
   }
 
-  List<Product> _products = [];
-  List<Product> get() => _products;
-  void setProduct(Product product) {
-    _products.add(product);
+  setProduct(Product product) {
+    products!.add(product);
+  }
+
+  List<Product>? getProduct() {
+    return products;
   }
 }

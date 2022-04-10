@@ -14,3 +14,11 @@ class GetFavouriteProductEvent extends ProductEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class SaveFavouriteProductEvent extends ProductEvent {
+  final Product product;
+
+  const SaveFavouriteProductEvent(this.product);
+  @override
+  List<Object?> get props => [];
+}

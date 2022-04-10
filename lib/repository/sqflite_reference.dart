@@ -4,33 +4,21 @@ import 'dart:io';
 import 'package:path/path.dart';
 
 class SqfLiteReference {
-  static final SqfLiteReference _instance = SqfLiteReference.internal();
-
-  factory SqfLiteReference() => _instance;
-  Database? _db;
-
-  Future<Database?> get db async {
-    if (_db != null) {
-      return _db;
-    }
-    _db = await initDb();
-    return db;
+  Future<Database> getDataBase() async {
+    Database database = await initDb();
+    return database;
   }
-
-  SqfLiteReference.internal();
 
   Future<Database> initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
 
-    String path = join(documentDirectory.path, 'products.db');
+    String path = join(documentDirectory.path, 'productsDB.db');
 
-    var dataBase = await openDatabase(path, version: 1, onCreate: _onCreate);
+    var dataBase = await openDatabase(path, version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute(
+          '''CREATE TABLE products('product_image' TEXT,'product_name' TEXT,'original_price' INTEGER,'rating' REAL,'discount_percentage' INTEGER,'discounted_price' INTEGER,'brand' TEXT)''');
+    });
     return dataBase;
-  }
-
-  void _onCreate(Database db, int newVersion) async {
-    await db.execute(
-      "CREATE TABLE products(productId INTEGER PRIMARY KEY, productImage TEXT,productName TEXT,originalPrice INTEGER,rating REAL,discountPercentage INTEGER,discountPrice INTEGER,brand TEXT)",
-    );
   }
 }

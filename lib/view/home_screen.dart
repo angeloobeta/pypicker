@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pypicker/blocs/product/product_bloc.dart';
 import 'package:pypicker/repository/product_repository.dart';
+import 'package:pypicker/view/widget/product_icon.dart';
 
 import '../model/product.dart';
 import 'favourite_screen.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductBloc productBloc;
-  final List<Product> _products = [];
+  List<Product> _products = [];
   // final List<Map> myProducts =
   //     List.generate(100000, (index) => {"id": index, "name": "Product $index"})
   //         .toList();
@@ -33,9 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state is ProductLoadingState) {
               return const CircularProgressIndicator();
             } else if (state is ProductLoadedState) {
+              _products = state.products;
               return buildGridList(state.products);
             }
-            return Container();
+            return _products.isNotEmpty
+                ? buildGridList(_products)
+                : Container();
           }),
         );
       }),
@@ -60,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 GridTile(
                     child: GestureDetector(
                   onTap: () {
-                    // _products.add(product);
+                    productBloc.add(SaveFavouriteProductEvent(product));
                   },
                   child: CachedNetworkImage(
                     imageUrl: product.productImage!,
@@ -93,15 +97,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Rs. ' + product.discountPrice!.toString() + '  ',
+                      'Rs. ${product.discountPrice!.toString()}  ',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Rs. ' + product.originalPrice!.toString() + '  ',
+                      'Rs. ${product.originalPrice!.toString()} ',
                       style: const TextStyle(color: Colors.grey),
                     ),
                     Text(
-                      product.discountPercentage.toString() + '%',
+                      '${product.discountPercentage.toString()} %',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.lightGreen),
@@ -111,44 +115,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
-                    Icon(
-                      Icons.star,
-                      color: Colors.deepOrangeAccent,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.deepOrangeAccent,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.deepOrangeAccent,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.deepOrangeAccent,
-                      size: 15,
-                    ),
-                    Icon(
-                      Icons.star_border_sharp,
-                      color: Colors.deepOrangeAccent,
-                      size: 15,
-                    ),
+                    ProductIcons(
+                        icon: Icons.star, color: Colors.deepOrangeAccent),
+                    ProductIcons(
+                        icon: Icons.star, color: Colors.deepOrangeAccent),
+                    ProductIcons(
+                        icon: Icons.star, color: Colors.deepOrangeAccent),
+                    ProductIcons(
+                        icon: Icons.star, color: Colors.deepOrangeAccent),
+                    ProductIcons(
+                        icon: Icons.star_outline,
+                        color: Colors.deepOrangeAccent),
                   ],
                 )
-                // RichText(
-                //   text: TextSpan(
-                //       text: 'Rs. ' + product.discountPrice!.toString() + '  ',
-                //       style: TextStyle(fontWeight: FontWeight.bold),
-                //       children: [
-                //         TextSpan(
-                //           text: 'Rs. ' + product.originalPrice!.toString(),
-                //           style: TextStyle(fontWeight: FontWeight.bold),
-                //         )
-                //       ]),
-                // )
               ],
             );
           }),

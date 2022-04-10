@@ -14,6 +14,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc({this.repository}) : super(ProductInitial()) {
     on<GetProductEvent>(_mapGetProductToState);
     on<GetFavouriteProductEvent>(_mapGetFavouriteProductEventToState);
+    on<SaveFavouriteProductEvent>(_mapSaveFavouriteProductEventToState);
   }
 
   FutureOr<void> _mapGetProductToState(
@@ -35,6 +36,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoadedState(products));
     } catch (e) {
       emit(ProductErrorState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapSaveFavouriteProductEventToState(
+      SaveFavouriteProductEvent event, Emitter<ProductState> emit) async {
+    emit(FavouriteProductLoadingState());
+    try {
+      await repository!.saveFavouriteProduct(event.product);
+      emit(ProductSavedState());
+    } catch (e) {
+      emit(FavouriteProductErrorState(e.toString()));
     }
   }
 }

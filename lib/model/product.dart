@@ -33,6 +33,19 @@ class Product {
     return data;
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      //'product_id': productId,
+      'product_image': productImage,
+      'product_name': productName,
+      'brand': brand,
+      'original_price': originalPrice,
+      // 'discounted_price': discountPrice,
+      'discount_percentage': discountPercentage,
+      'rating': rating
+    };
+  }
+
   Product.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
     productImage = json['product_image'];

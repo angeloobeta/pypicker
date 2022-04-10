@@ -15,16 +15,18 @@ class ProductRepository {
     }
   }
 
-  Future<int> saveTask(Product product) async {
-    var dbClient = await SqfLiteReference().db;
-    int result = await dbClient!.insert('products', product.toJson());
+  Future<int> saveFavouriteProduct(Product product) async {
+    var dbClient = await SqfLiteReference().getDataBase();
+
+    int result = await dbClient.insert('products', product.toMap());
+
     return result;
   }
 
   Future<List<Product>> getFavouriteProduct() async {
-    var dbClient = await SqfLiteReference().db;
+    var dbClient = await SqfLiteReference().getDataBase();
 
-    var result = await dbClient!.rawQuery(
+    var result = await dbClient.rawQuery(
       "SELECT * FROM products",
     );
     return result.toList().map((product) => Product.fromJson(product)).toList();

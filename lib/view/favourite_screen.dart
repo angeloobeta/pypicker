@@ -15,11 +15,6 @@ class FavouriteScreen extends StatefulWidget {
 class _FavouriteScreenState extends State<FavouriteScreen> {
   List<Product>? products;
 
-  @override
-  void initState() {
-    products = ProductRepository().getProduct();
-    super.initState();
-  }
   // late List<Product> products;
   // final List<Map> myProducts =
   //     List.generate(100000, (index) => {"id": index, "name": "Product $index"})

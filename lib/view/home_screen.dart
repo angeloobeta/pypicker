@@ -61,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: GestureDetector(
                   onTap: () {
                     // _products.add(product);
-                    ProductRepository().setProduct(product);
                   },
                   child: CachedNetworkImage(
                     imageUrl: product.productImage!,

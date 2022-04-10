@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:pypicker/model/product.dart';
+import 'package:pypicker/repository/sqflite_reference.dart';
 
 class ProductRepository {
-  List<Product>? products = [];
   Future<List<Product>> getProducts() async {
     try {
       final jsonData = await rootBundle.loadString('assets/data.json');
@@ -15,11 +15,18 @@ class ProductRepository {
     }
   }
 
-  setProduct(Product product) {
-    products!.add(product);
+  Future<int> saveTask(Product product) async {
+    var dbClient = await SqfLiteReference().db;
+    int result = await dbClient!.insert('products', product.toJson());
+    return result;
   }
 
-  List<Product>? getProduct() {
-    return products;
+  Future<List<Product>> geAllTask() async {
+    var dbClient = await SqfLiteReference().db;
+
+    var result = await dbClient!.rawQuery(
+      "SELECT * FROM products",
+    );
+    return result.toList().map((product) => Product.fromJson(product)).toList();
   }
 }

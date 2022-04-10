@@ -1,16 +1,23 @@
-# pypicker
-
 A new Flutter project.
 
-## Getting Started
+## pypicker Flutter task assessment
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Development Setup
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Clone the repository and run the following commands:
+
+```
+flutter pub get
+flutter run
+```
+
+
+## ScreenShots
+
+<img src="assets/screenshot/Screenshot 2022-04-10 at 3.15.23 PM.png" height="500em" /> &nbsp; <img src="assets/screenshot/Screenshot 2022-04-10 at 3.15.47 PM.png" height="500em" />
+
+
+# This project was build with the Flutter Bloc and sqflite, 
+# This is to make the system robust and flexible.

@@ -21,7 +21,7 @@ class ProductRepository {
     return result;
   }
 
-  Future<List<Product>> geAllTask() async {
+  Future<List<Product>> getFavouriteProduct() async {
     var dbClient = await SqfLiteReference().db;
 
     var result = await dbClient!.rawQuery(
